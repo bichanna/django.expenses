@@ -13,14 +13,25 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
+class Category(models.Model):
+	#フィールドの定義
+	category = models.TextField()
+
+	def __str__(self):
+		return self.category
+
+
+
+
+
+
 class Expensess(models.Model):
 	"""
 		家計簿
 
 		author  : 作者(Djangoのユーザーを使用)
 		title  : タイトル
-		category_ID: カテゴリーのID
-		category name: カテゴリー名
+		category: カテゴリーのID
 		cost: 金額
 		number: 順番番号
 		date : 日付
@@ -29,11 +40,9 @@ class Expensess(models.Model):
 
 	#フィールドの定義
 	author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-	#                                     ↑ここの説明をしてもらう
-	#category_ID = models.ForeignKey(settings.)
+	category = models.ForeignKey(Category,on_delete=models.CASCADE)
 	title = models.CharField(max_length=200)
-	#category_ID = models.TextField()
-	category = models.TextField()
+
 	cost = models.TextField()
 	number = models.TextField()
 	memo = models.TextField()
@@ -42,3 +51,15 @@ class Expensess(models.Model):
 
 	def __str__(self):
 		return self.title
+
+
+
+
+
+
+
+
+
+
+
+

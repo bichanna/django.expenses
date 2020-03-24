@@ -12,7 +12,7 @@ from django.shortcuts import render
 """
 from django.views.generic import View
 from django.utils import timezone
-from .models import Expensess
+from .models import Expensess,Category
 
 
 class ExpensessListView(View):
@@ -27,3 +27,13 @@ class ExpensessListView(View):
 		return render(request,"expensess/expensess_list.html",context)
 
 expensess_list = ExpensessListView.as_view()
+
+
+"""
+class CategoryListView(View):
+	def get(self,request,*args,**kwargs):
+		context = {}
+		category = Category.objects.all()
+		context["category"] = category
+		return render(request,"expensess/expensess_list.html",context)
+"""

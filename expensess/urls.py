@@ -13,4 +13,5 @@ from . import views
 app_name = "expensess"  #アプリケーション名
 urlpatterns = [
 	path("",views.expensess_list, name="expensess_list"),
+	#path("",views.category_list, name="category_list"),
 ]
