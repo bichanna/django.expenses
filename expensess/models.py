@@ -46,7 +46,7 @@ class Expensess(models.Model):
 	cost = models.TextField()
 	number = models.TextField()
 	memo = models.TextField()
-	date = models.DateTimeField(blank=True, null=True)
+	date = models.DateField(blank=True,null=True)
 
 
 	def __str__(self):
