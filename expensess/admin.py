@@ -11,9 +11,11 @@ from django.contrib import admin
 
 """
 from django.contrib import admin
-from .models import Expensess
+from .models import Expensess,Category
 
 admin.site.register(Expensess)
+admin.site.register(Category)
+
 
 
 ######### admin2はnobu8717

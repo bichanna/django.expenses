@@ -1,35 +1,24 @@
-<div>
-	<h1><a href="/">俺の家計簿!</a></h1>
-</div>
+{% extends "expensess/base.html" %}
 
-{% for expense in expensess %}
-	<div class="table-responsive">
-		<table class="table table-striped table-sm">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>日付</th>
-					<th>カテゴリ</th>
-					<th>金額</th>
-					<th>メモ</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<!--
-					<td>{{ expense.number }}</td>
-					<td>{{ expense.date }}</td>
-					<td>{{ expense.category }}</td>
-					<td>{{ expense.cost }}</td>
-					<td>{{ expense.memo }}</td>
-				-->
-					<td>1</td>
-					<td>2020年</td>
-					<td>食費</td>
-					<td>1500</td>
-					<td>昼ごはん</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-{% endfor %}
+{% block content1 %}
+	<tr>
+		<th>#</th>
+		<th>日付</th>
+		<th>カテゴリ</th>
+		<th>金額</th>
+		<th>メモ</th>
+	</tr>
+{% endblock %}
+
+
+{% block content2 %}
+	<tbody>
+		<tr>
+			<td>{{ expense.number }}</td>
+			<td>{{ expense.date }}</td>
+			<td>{{ expense.category }}</td>
+			<td>{{ expense.cost }}</td>
+			<td>{{ expense.memo }}</td>
+		</tr>
+	</tbody>
+{% endblock %}
