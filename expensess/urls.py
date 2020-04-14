@@ -7,10 +7,12 @@
 	Written by Nobuharu Shimazu
 
 """
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 app_name = "expensess"  #アプリケーション名
 urlpatterns = [
 	path("",views.expensess_list, name="expensess_list"),
+	#path("accounts/", include("django.contrib.auth.urls")),
+
 ]
