@@ -9,10 +9,11 @@
 
 from django.contrib.auth.views import PasswordChangeView,PasswordChangeDoneView
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.views.generic import DetailView, UpdateView
-from .forms import UserUpdateForm
+from django.views.generic import DetailView, UpdateView, CreateView
+from .forms import UserUpdateForm,UserCreateForm
 from django.contrib.auth.models import User
 from django.shortcuts import resolve_url
+from django.urls import reverse_lazy
 
 # Create your views here.
 class OnlyYouMixin(UserPassesTestMixin):
@@ -49,4 +50,47 @@ class UserUpdate(OnlyYouMixin,UpdateView):
 			更新後の表示をする画面。ユーザーの詳細を表示する画面に遷移する。
 		"""
 		return resolve_url("accounts:user_detail",pk=self.kwargs["pk"])
+
+
+
+class UserCreate(CreateView):
+	"""
+		ユーザー作成用のビュー
+	"""
+	template_name="registration/user_create.html"
+	form_class=UserCreateForm
+	success_url = reverse_lazy("login")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
