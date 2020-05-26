@@ -44,7 +44,7 @@ class Expensess(models.Model):
 	title = models.CharField(max_length=200)
 
 	cost = models.TextField()
-	number = models.TextField()
+	number = models.IntegerField()
 	memo = models.TextField()
 	date = models.DateField(blank=True,null=True)
 

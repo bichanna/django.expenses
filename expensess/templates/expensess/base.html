@@ -53,18 +53,8 @@
 		<div class="content container">
 			<div class="row">
 				<div class="col-md-8">
-					<div class="table-responsive">
-						<table class="table table-striped table-sm">
-							<thead>
-								{% block content1 %}
-								{% endblock %}
-							</thead>
-							{% for expense in expensess %}
-								{% block content2 %}
-								{% endblock %}
-							{% endfor %}
-						</table>
-					</div>
+					{% block content %}
+					{% endblock %}
 				</div>
 			</div>
 		</div>

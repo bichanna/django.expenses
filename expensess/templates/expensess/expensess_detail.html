@@ -1,0 +1,34 @@
+{% extends 'expensess/base.html' %}
+
+{% block content %}
+	<div class="table-responsive">
+		<table class="table table-striped table-sm">
+			<thead>
+				{% if user.is_authenticated %}
+					<tr>
+						<th>#</th>
+						<th>日付</th>
+						<th>カテゴリ</th>
+						<th>金額</th>
+						<th>メモ</th>
+					</tr>
+				{% endif %}
+			</thead>
+				
+			<tbody>
+				<tr>
+					<td>{{ expensess.number }}</td>
+					<td>{{ expensess.date }}</td>
+					<td>{{ expensess.category }}</td>
+					<td>{{ expensess.cost }}</td>
+					<td>{{ expensess.memo }}</td>
+				</tr>
+			</tbody>
+			{% if expensess.date %}
+				<div class="date">
+					{{ expensess.date }}
+				</div>
+			{% endif %}
+		</table>
+	</div>
+{% endblock %}
