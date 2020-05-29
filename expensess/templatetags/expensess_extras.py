@@ -1,0 +1,30 @@
+"""
+	template tagの拡張
+
+	Filename expensess_extras.py
+	Date: 2020.5.25
+	Written by Nobuharu Shimazu
+"""
+
+from django import template
+from django.shortcuts import resolve_url
+from urllib import parse
+
+register = template.Library()
+
+@register.simple_tag
+def get_return_link(request):
+	"""
+		一つ前のページのURLを取得するテンプレートタグ
+	"""
+	top_page = resolve_url("expensess:expensess_list")
+	referer = request.environ.get("HTTP_REFERER")
+
+	if referer:
+
+
+		parse_result = parse.urlparse(referer)
+		if request.get_host() == parse_result.netloc:
+			return referer
+	#なければトップページへ
+	return top_page

@@ -10,7 +10,7 @@ from django.shortcuts import render, reverse
 	Written by Nobuharu Shimazu
 
 """
-from django.views.generic import View,DetailView, CreateView
+from django.views.generic import View,DetailView, CreateView, RedirectView, UpdateView, DeleteView
 from django.utils import timezone
 from .models import Expensess,Category
 from .forms import PostForm
@@ -58,10 +58,28 @@ class ExpensessCreateView(LoginRequiredMixin, CreateView):
 		return reverse("expensess:expensess_detail",args=(self.object.id,))
 
 
+class ExpensessUpdateView(LoginRequiredMixin, UpdateView):
+	"""
+		変更ページのビュー
+	"""
+	model = Expensess
+	form_class = PostForm
+	template_name = "expensess/expensess_update.html"
+
+	def get_success_url(self):
+		"""詳細画面にリダイレクトする。"""
+		return reverse("expensess:expensess_detail", args=(self.object.id,))
 
 
-
-
+class ExpensessDeleteView(LoginRequiredMixin, DeleteView):
+	"""
+		削除用のビュー
+	"""
+	model = Expensess
+	template_name = "expensess/expensess_delete.html"
+	def get_success_url(self):
+		"""一覧ページにリダイレクトする。"""
+		return reverse("expensess:expensess_list")
 
 
 
