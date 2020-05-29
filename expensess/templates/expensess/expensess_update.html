@@ -1,0 +1,16 @@
+{% extends "expensess/base.html" %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	{% bootstrap_form_errors form type="non_fields" %}
+	{% bootstrap_field form.number placeholder="順番" %}
+	{% bootstrap_field form.date placeholder="日付" %}
+	{% bootstrap_field form.category placeholder="カテゴリー" %}
+	{% bootstrap_field form.cost placeholder="コスト" %}
+	{% bootstrap_field form.memo placeholder="メモ" %}
+	<button type="submit" class="btn btn-primary btn-lg">変更</button>
+</form>
+{% endblock %}

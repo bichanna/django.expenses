@@ -16,5 +16,7 @@ urlpatterns = [
 	path("expensess/<int:pk>/", views.expensess_detail, name="expensess_detail"),
 	path("accounts/", include("django.contrib.auth.urls")),
 	path("expensess/add/",views.ExpensessCreateView.as_view(),name="expensess_add"),
+	path("expensess/<int:pk>/update/",views.ExpensessUpdateView.as_view(), name="expensess_update"),
+	path("expensess/<int:pk>/delete/",views.ExpensessDeleteView.as_view(), name="expensess_delete"),
 
 ]

@@ -43,7 +43,7 @@ class Expensess(models.Model):
 	category = models.ForeignKey(Category,on_delete=models.CASCADE)
 	title = models.CharField(max_length=200)
 
-	cost = models.TextField()
+	cost = models.IntegerField()
 	number = models.IntegerField()
 	memo = models.TextField()
 	date = models.DateField(blank=True,null=True)

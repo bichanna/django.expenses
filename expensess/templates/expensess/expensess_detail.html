@@ -31,4 +31,10 @@
 			{% endif %}
 		</table>
 	</div>
+	{% if expensess.author == user %}
+		<div class="mt-3 mb-5">
+			<a class="btn btn-primary btn-lg" href="{% url 'expensess:expensess_update' expensess.pk%}">変更</a>
+		</div>
+		<a class="btn btn-danger btn-lg" href="{% url 'expensess:expensess_delete' expensess.pk %}">削除</a>
+	{% endif %}
 {% endblock %}
