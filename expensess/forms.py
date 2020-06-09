@@ -8,9 +8,10 @@
 """
 
 from django.forms import ModelForm
+from django import forms
 from .models import Expensess
 
-class PostForm(ModelForm):
+class ExpensessForm(ModelForm):
 	"""
 		金額追加画面用のフォーム
 		number : 順番
@@ -31,3 +32,10 @@ class PostForm(ModelForm):
 			"cost": "コスト",
 			"memo": "メモ",
 		}
+
+
+class ExpensessSearchForm(forms.Form):
+	"""
+		表検索用のフォーム
+	"""
+	key_word = forms.CharField(label="検索キーワード",required=False)

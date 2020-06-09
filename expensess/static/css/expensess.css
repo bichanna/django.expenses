@@ -51,3 +51,9 @@ body {
 .expensess h2 a, .post h2 a:visited {
 	color: #000000;
 }
+tbody tr.clickable:hover td {
+	background: #DE781F;
+
+	cursor: pointer;
+}
+
