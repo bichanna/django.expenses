@@ -18,28 +18,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
-"""
-class ExpensessListView(View):
-	def get(self,request,*args,**kwargs):
-			#Get request用の処理
-			#家計簿一覧を表示する
-		context = {}
-		expensess = Expensess.objects.all()
-		context["expensess"] = expensess
-		return render(request,"expensess/expensess_list.html",context)
-
-expensess_list = ExpensessListView.as_view()
-
-
-class ExpensessDetailView(DetailView):  #大文字を全て小文字にして使える。
-	model = Expensess
-	template_name = "expensess/expensess_detail.html"
-
-expensess_detail = ExpensessDetailView.as_view()
-
-
-"""
-
 
 class ExpensessListView(ListView):
 	
@@ -50,7 +28,7 @@ class ExpensessListView(ListView):
 	template_name = "expensess/expensess_list.html"
 	paginate_by = 6
 
-	def get_queryset(self):
+	def get_queryset(self):       #テンプレートに送るデータを抽出したいならget_querysetで制限する。
 		
 			#検索条件の設定
 		
@@ -67,17 +45,38 @@ class ExpensessListView(ListView):
 
 		
 		queryset = queryset.filter(date__lte=timezone.now()).order_by("date")
-		print("*********")
-		print(queryset)
-		print("********")
+		queryset = queryset.filter(author_id__username__icontains=self.request.user.username)
 		return queryset
 
 	
-	def get_context_data(self, **kwargs):
-		
+	def get_context_data(self, **kwargs):  #テンプレートに辞書を
 			#コンテキストの設定
+		user = self.request.user.username
 		context = super().get_context_data(**kwargs)
 		context["form"] = self.form
+		print(context)
+
+
+
+
+		"""
+		n = 0
+		for expense in context["expensess_list"]:
+			if self.request.user.is_authenticated:
+				if self.request.user.username == expense.author.username:
+					n += 1
+					#k,v = context["expensess_list"][0].popitem()
+					#print("****************************")
+					#print(expense)
+					#print("****************************")
+					#print(context["expensess_list"][0])   #テンプレートでさばいていた情報をこっちに事前にさばく。
+					#print("**************************")
+		"""
+					
+
+
+		
+		
 		return context
 
 expensess_list = ExpensessListView.as_view()
