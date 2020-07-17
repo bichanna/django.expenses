@@ -40,17 +40,17 @@ class Expensess(models.Model):
 
 	#フィールドの定義
 	author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-	category = models.ForeignKey(Category,on_delete=models.CASCADE)
-	title = models.CharField(max_length=200)
+	category = models.ForeignKey(Category,on_delete=models.CASCADE,verbose_name="カテゴリー")
+	title = models.CharField(max_length=200,verbose_name="タイトル")
 
-	cost = models.IntegerField()
-	number = models.IntegerField()
-	memo = models.TextField()
-	date = models.DateField(blank=True,null=True)
+	cost = models.IntegerField(verbose_name="コスト")
+	number = models.IntegerField(verbose_name="順番")
+	memo = models.TextField(verbose_name="メモ")
+	date = models.DateField(blank=True,null=True,verbose_name="日付")
 
 
 	def __str__(self):
-		return str(self.author) + ":" +self.number
+		return str(self.author) + ":" +str(self.number) + "     " + str(self.id) + "    " + self.title
 
 
 

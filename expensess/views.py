@@ -13,10 +13,15 @@ from django.shortcuts import render, reverse
 from django.views.generic import View,DetailView, CreateView, RedirectView, UpdateView, DeleteView, ListView
 from django.utils import timezone
 from .models import Expensess,Category
-from .forms import ExpensessForm, ExpensessSearchForm
+from .forms import ExpensessForm, ExpensessSearchForm, CSVUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+import pandas as pd
+import numpy as np
+from django.views import generic
+from django.urls import reverse_lazy
+import io
 
 
 class ExpensessListView(ListView):
@@ -54,7 +59,6 @@ class ExpensessListView(ListView):
 		user = self.request.user.username
 		context = super().get_context_data(**kwargs)
 		context["form"] = self.form
-		print(context)
 
 
 
@@ -138,11 +142,85 @@ class ExpensessDeleteView(LoginRequiredMixin, DeleteView):
 		return reverse("expensess:expensess_list")
 
 
-#<td><a href="{% url 'expensess:expensess_detail' pk=expense.pk %}">{{ expense.number }}</a></td>
-#<td data-href="/kakeibo/{{expense.id}}/">{{ expense.number }}</td>
-#<script src="/static/js/clicktable.js"></script>
-#data-href="{% url 'expensess:expensess_detail' pk=expense.pk %}"
-#data-href="/expensess/{{pk=expense.pk}/"
+
+class ExpensessDataImport(LoginRequiredMixin,generic.FormView):
+	"""
+		データインポート用のビュー
+	"""
+	#model = Expensess
+	success_url = reverse_lazy("expensess:expensess_list")
+	template_name = "expensess/expensess_import.html"
+	form_class = CSVUpdateForm
+
+	def form_valid(self, form):
+		#データの読み込み
+		csvfile = form.cleaned_data["file"]
+		df = pd.read_csv(csvfile,
+						 names = ["title","number","date","category_id","cost","memo","author_id","id"])
+		df["date"] = pd.to_datetime(df["date"],format="%Y-%m-%d")
+		data_np = np.asarray(df)
+		for row in data_np:
+			defaults = {
+				"title":row[0],
+				"number":row[1],
+				"date":row[2],
+				"category_id":row[3],
+				"cost":row[4],
+				"memo":row[5],
+				"author_id":row[6],
+				"id":row[7],
+			}
+			#print(defaults)
+
+			data, created = Expensess.objects.get_or_create(id=row[7],defaults=defaults)
+			#print(str(row[6]) + "*********")
+			
+			if not created:
+				data.title = row[0]
+				data.number = row[1]
+				data.date = row[2]
+				data.category_id = row[3]
+				data.cost = row[4]
+				print(data.memo)
+				print(row[5])
+				print(data.title,data.number,data.date,data.category_id,data.cost)
+				data.memo = row[5]
+				data.author_id = row[6]
+				data.id = row[7]
+				print(data.memo)
+				print("⭐"*20)
+				data.save()
+		
+			
+
+
+		print("⭐"*10)
+		print(form)
+		return super().form_valid(form)
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
