@@ -4,6 +4,9 @@
 	<div class="table-responsive">
 		<table class="table table-striped table-sm">
 			{% if user.is_authenticated %}	
+				<div class="row p-3">
+					<a href="{% url 'expensess:expensess_import' %}" class="btn btn-primary btn-lg">データの取り込み</a>
+				</div>
 				<form id="form" action="" method="GET">
 					{{ form.key_word }}
 					<button type="submit" class="btn btn-primary btn-lg">検索</button>
@@ -23,6 +26,8 @@
 				<h2>ようこそ「俺の家計簿！」へ。</h2>
 				<h3>あなたの家計簿を作ることができるアプリです。まずはユーザー登録をしてツールを使えるように準備しましょう。</h3>
 			{% endif %}
+
+			
 
 			{% for expense in expensess_list %}
 				{% if user.is_authenticated %}

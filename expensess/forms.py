@@ -39,3 +39,40 @@ class ExpensessSearchForm(forms.Form):
 		表検索用のフォーム
 	"""
 	key_word = forms.CharField(label="検索キーワード",required=False)
+
+
+
+class CSVUpdateForm(forms.Form):
+	"""
+		CSVを登録するためのフォーム
+	"""
+	file = forms.FileField(label="CSVファイル",help_text="拡張子がCSVのファイルをアップロードしてください。")
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
